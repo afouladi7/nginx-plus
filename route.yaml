@@ -1,0 +1,14 @@
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: test
+  namespace: nginx-ingress
+spec:
+  host: test-nginx-ingress.apps.cluster-8bdnj.8bdnj.sandbox1808.opentlc.com
+  to:
+    kind: Service
+    name: nginxingress-sample-nginx-ingress
+    weight: 100
+  port:
+    targetPort: http80
+  wildcardPolicy: None
