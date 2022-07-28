@@ -1,0 +1,44 @@
+kind: Service
+apiVersion: v1
+metadata:
+  annotations:
+    meta.helm.sh/release-name: nginxingress-sample
+    meta.helm.sh/release-namespace: nginx-ingress
+  name: nginxingress-sample-nginx-ingress
+  namespace: nginx-ingress
+  labels:
+    app.kubernetes.io/instance: nginxingress-sample
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: nginxingress-sample-nginx-ingress
+    helm.sh/chart: nginx-ingress-0.14.0
+spec:
+  clusterIP: 172.30.77.142
+  externalTrafficPolicy: Local
+  ipFamilies:
+    - IPv4
+  healthCheckNodePort: 32475
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 80
+      nodePort: 30106
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 443
+      nodePort: 32643
+    - name: http80
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 32644
+  internalTrafficPolicy: Cluster
+  clusterIPs:
+    - 172.30.77.142
+  allocateLoadBalancerNodePorts: true
+  type: LoadBalancer
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: nginxingress-sample-nginx-ingress
